@@ -30,6 +30,11 @@ def stopServer(request, game):
     return redirect('/')
 
 def startBot(request):
+    try:
+        res = subprocess.check_output(['tmux', 'new-session', '-d', '-s', 'bot'])
+        subprocess.check_output(['tmux', 'send-keys', '-t', 'bot' , 'python3 /bot/bot/bot.py ', 'ENTER'])
+    except:
+        pass
     return redirect('/')
 
 def stopBot(request):

@@ -1,19 +1,22 @@
 import asyncio
 import threading
-import django
 import os
+
+from dotenv import load_dotenv
 
 from discord import Intents
 from discord.ext import commands
 
-from discordBot.commands import logger, singleton
+from utils import logger, singleton
 
-from bot.commands import BotCommands
-from bot.player import PlayerCommands
+from bot_commands import BotCommands
+from player import PlayerCommands
 
+dotenv_path = '/bot/.env'
+load_dotenv(dotenv_path)
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "discordBot.settings")
-django.setup()
+#load_dotenv()
+
 
 @singleton
 class LeyDeOhmBot(commands.Bot):
@@ -25,13 +28,11 @@ class LeyDeOhmBot(commands.Bot):
         self.key = os.environ['DISCORD_KEY']
 
     def init(self):
-        asyncio.set_event_loop(asyncio.new_event_loop())
-        self.thread = threading.Thread(
-            target=self.run, args=(self.key,), daemon=True)
-        self.thread.start()
-        self.thread.setName("LeyDeOhmBot")
+        self.run(self.key)
 
     async def on_ready(self):
         await self.add_cog(BotCommands(self))
         await self.add_cog(PlayerCommands(self))
         logger.info('Bot Iniciado')
+
+LeyDeOhmBot().init()

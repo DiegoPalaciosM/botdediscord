@@ -6,9 +6,9 @@ from discord.ext import commands
 from youtubesearchpython import VideosSearch
 from yt_dlp import YoutubeDL
 
-from bot.lang import *
+from lang import *
 
-from discordBot.commands import singleton
+from bot_commands import singleton
 
 lang = es
 
