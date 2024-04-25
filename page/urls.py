@@ -8,5 +8,6 @@ urlpatterns = [
     path('startServer/<game>', views.startServer, name='startBot'),
     path('stopServer/<game>', views.stopServer, name='stopBot'),
     path('botStatus/', views.serverStatus, name='botStatus'),
-    path('startBot/', views.startBot)
+    path('startBot/', views.startBot),
+    path('stopBot/', views.stopBot),
 ]

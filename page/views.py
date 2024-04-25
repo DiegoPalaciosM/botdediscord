@@ -2,6 +2,7 @@ import subprocess
 
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
+from django.conf import settings
 
 def custom_404(request, exception):
     return render(request, '404.html', status=404)
@@ -27,13 +28,18 @@ def stopServer(request, game):
 
 def startBot(request):
     try:
+        route = 'python3 /home/ubuntu/botdediscord/bot/bot.py' if settings.DEBUG else 'python3 /bot/bot/bot.py'
         res = subprocess.check_output(['tmux', 'new-session', '-d', '-s', 'bot'])
-        subprocess.check_output(['tmux', 'send-keys', '-t', 'bot' , 'python3 /home/ubuntu/botdediscord/bot/bot.py ', 'ENTER'])
+        subprocess.check_output(['tmux', 'send-keys', '-t', 'bot' , route, 'ENTER'])
     except:
         pass
     return redirect('/')
 
 def stopBot(request):
+    try:
+        res = subprocess.check_output(['tmux', 'kill-session', '-t', 'bot'])
+    except:
+        pass
     return redirect('/')
 
 def serverStatus(request):
