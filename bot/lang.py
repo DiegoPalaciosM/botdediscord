@@ -31,3 +31,4 @@ en = {
     "empty_queue": "Empty playlist",
     "helper_create_queue": "Use >play to add a song to the playlist"
 }
+    
