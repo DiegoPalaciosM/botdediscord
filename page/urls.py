@@ -7,5 +7,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('startServer/<game>', views.startServer, name='startBot'),
     path('stopServer/<game>', views.stopServer, name='stopBot'),
-    path('botStatus/', views.serverStatus, name='botStatus')
+    path('botStatus/', views.serverStatus, name='botStatus'),
+    path('startBot/', views.startBot)
 ]

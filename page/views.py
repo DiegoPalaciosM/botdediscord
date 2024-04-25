@@ -3,10 +3,6 @@ import subprocess
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 
-from bot.bot import LeyDeOhmBot
-
-LeyDeOhmBot().init()
-
 def custom_404(request, exception):
     return render(request, '404.html', status=404)
 
@@ -32,7 +28,7 @@ def stopServer(request, game):
 def startBot(request):
     try:
         res = subprocess.check_output(['tmux', 'new-session', '-d', '-s', 'bot'])
-        subprocess.check_output(['tmux', 'send-keys', '-t', 'bot' , 'python3 /bot/bot/bot.py ', 'ENTER'])
+        subprocess.check_output(['tmux', 'send-keys', '-t', 'bot' , 'python3 /home/ubuntu/botdediscord/bot/bot.py ', 'ENTER'])
     except:
         pass
     return redirect('/')
